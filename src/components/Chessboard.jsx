@@ -4,6 +4,7 @@ import { Chessground as ChessgroundWrapper } from '.';
 /**
  * Chessground wrapper component
  */
+
 const Chessground = (props) => {
   const [key, setKey] = useState(Math.random());
 
