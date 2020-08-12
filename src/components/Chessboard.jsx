@@ -1,12 +1,30 @@
 import React, { useState } from 'react';
 import { Chessground as ChessgroundWrapper } from '.';
+import { useEffect } from 'react';
 
 /**
  * Chessground wrapper component
  */
 
-const Chessground = (props) => {
+const Chessground = ({ jsonedGame = [], ...props }) => {
+  const [fen, setFen] = useState('');
+  const [itemsChecked, setItemsChecked] = useState(0);
   const [key, setKey] = useState(Math.random());
+
+  useEffect(() => {
+    if (jsonedGame.length) {
+      if (jsonedGame[0].depth === 1) {
+        setTimeout(() => {
+          setFen(jsonedGame.shift().fen);
+        }, 1000);
+      } else {
+        jsonedGame.shift();
+      }
+      setItemsChecked(itemsChecked + 1);
+    }
+  }, [setFen, jsonedGame.length, jsonedGame, fen]);
+  
+  //console.log(jsonedGame.length); -> apare de 2 ori / valoare (17,17,16,16...)
 
   let timeout;
   // debounce window resize event
@@ -22,7 +40,7 @@ const Chessground = (props) => {
       key={key}
       className="main-board green neo my-2 overflow-hidden rounded"
     >
-      <ChessgroundWrapper {...props} />
+      <ChessgroundWrapper {...props} fen={fen} />
     </div>
   );
 };

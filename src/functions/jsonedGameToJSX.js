@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const jsonedGameToJSX = (jsonedGame) => {
   const JSXedGame = jsonedGame.map((item, index) => {
     let blackToMove = false;
@@ -6,6 +8,8 @@ export const jsonedGameToJSX = (jsonedGame) => {
       index > 0 &&
       jsonedGame[index - 1].fen[jsonedGame[index - 1].fen.length - 1] ==
         jsonedGame[index].fen[jsonedGame[index].fen.length - 1] - 1
+        // daca e varianta intre mutarea albului si a negrului nu-si mai da seama
+        // ca e negrul la mutare (diferenta intre indecsi nu e 1, vezi jsonedGameCuBug)
     ) {
       blackToMove = true;
       if (jsonedGame[index - 1].comment) {
@@ -13,12 +17,12 @@ export const jsonedGameToJSX = (jsonedGame) => {
       }
     }
     return [
-      index > 0 && jsonedGame[index - 1].depth < jsonedGame[index].depth && (
-        <span> (</span>
-      ),
-      index > 0 && jsonedGame[index - 1].depth > jsonedGame[index].depth && (
-        <span>) </span>
-      ),
+      index > 0 &&
+        jsonedGame[index - 1].depth < jsonedGame[index].depth &&
+        ' (',
+      index > 0 &&
+        jsonedGame[index - 1].depth > jsonedGame[index].depth &&
+        ') ',
       item.move &&
         item.fen &&
         index > 0 &&
@@ -45,7 +49,7 @@ export const jsonedGameToJSX = (jsonedGame) => {
             {item.move + ' '}
           </i>
         )),
-      item.comment && <span>{item.comment}</span>,
+      item.comment && item.comment,
     ];
   });
   return JSXedGame;
