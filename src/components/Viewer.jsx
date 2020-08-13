@@ -12,7 +12,7 @@ const Viewer = () => {
   const showMoves = (item, index, array) => {
     return (
       <span key={item.depth + ' ' + item.fen}>
-        <Comment comment={item.comment} />
+        <Comment item={item} itemIndex={index} itemArray={array} />
         <Move item={item} itemIndex={index} itemArray={array} />
       </span>
     );

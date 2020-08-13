@@ -1,20 +1,22 @@
 import React from 'react';
 
+import { getMovePrefix } from '../functions/getMovePrefix';
+
 const Move = (props) => {
   const { item, itemIndex, itemArray } = props;
   const { move, fen, depth } = item;
 
-  let blackToMove = false;
-  let needPuncte = false;
-  if (fen.includes(' w ')) {
-    blackToMove = true;
-    if (itemIndex > 0 && itemArray[itemIndex - 1].comment) {
-      needPuncte = true;
-    }
-  }
-
-
-  return ;
+  return depth === 1 ? (
+    <b>
+      {getMovePrefix(item, itemArray[itemIndex - 1])}
+      {move}{' '}
+    </b>
+  ) : (
+    <i>
+      {getMovePrefix(item, itemArray[itemIndex - 1])}
+      {move}{' '}
+    </i>
+  );
 };
 
 export default Move;
