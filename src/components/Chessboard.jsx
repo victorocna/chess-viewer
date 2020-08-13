@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 const Chessground = ({ jsonedGame = [], ...props }) => {
   const [fen, setFen] = useState('');
-  const [itemsChecked, setItemsChecked] = useState(0);
+  const [, setItemsChecked] = useState(0);
   const [key, setKey] = useState(Math.random());
 
   useEffect(() => {
@@ -20,11 +20,11 @@ const Chessground = ({ jsonedGame = [], ...props }) => {
       } else {
         jsonedGame.shift();
       }
-      setItemsChecked(itemsChecked + 1);
+      setItemsChecked((i) => i + 1);
     }
   }, [setFen, jsonedGame.length, jsonedGame, fen]);
-  
-  //console.log(jsonedGame.length); -> apare de 2 ori / valoare (17,17,16,16...)
+
+  console.log(jsonedGame.length); //-> apare de 2 ori / valoare (17,17,16,16...)
 
   let timeout;
   // debounce window resize event
