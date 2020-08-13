@@ -1,21 +1,29 @@
 import React from 'react';
 
+import Comment from './Comment';
+import Move from './Move';
 import { Chessboard } from '.';
 import { jsonedGameToJSX } from '../functions/jsonedGameToJSX';
+import jsonedGame from '../chess-games/partida-tibigi.json';
 
 import '../index.css';
 
 const Viewer = () => {
-  const JSXedGame = jsonedGameToJSX(jsonedGame);
-
-  console.log(JSXedGame);
+  const showMoves = (item, index, array) => {
+    return (
+      <span key={item.depth + ' ' + item.fen}>
+        <Comment comment={item.comment} />
+        <Move item={item} itemIndex={index} itemArray={array} />
+      </span>
+    );
+  };
 
   return (
     <div className="grid lg:grid-cols-2 gap-4 mb-4" tabIndex={0}>
       <div className="flex">
         <Chessboard jsonedGame={jsonedGame} viewOnly coordinates />
       </div>
-      <div>{JSXedGame}</div>
+      <div className="inline">{jsonedGame.map(showMoves)}</div>
     </div>
   );
 };

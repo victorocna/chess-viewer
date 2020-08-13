@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Comment = () => {
-  return <div></div>;
+const Comment = ({ comment = '' }) => {
+  return <span>{comment}</span>;
 };
 
 export default Comment;
