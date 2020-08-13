@@ -12,9 +12,9 @@ const Move = (props) => {
       needPuncte = true;
     }
   }
-  
 
-  return <span></span>;
+
+  return ;
 };
 
 export default Move;
