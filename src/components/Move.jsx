@@ -4,10 +4,10 @@ import { getMovePrefix } from '../functions/getMovePrefix';
 
 const Move = (props) => {
   const { item, itemIndex, itemArray, isActive, onMoveSelected } = props;
-  const { move, fen, depth } = item;
+  const { move, depth } = item;
 
   const selectMove = () => {
-    onMoveSelected(fen);
+    onMoveSelected(itemIndex);
   };
 
   return depth === 1 ? (

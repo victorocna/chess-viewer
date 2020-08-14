@@ -1,10 +1,20 @@
 import React from 'react';
 
-const MoveNavigator = () => {
+const MoveNavigator = (props) => {
+  const { onSelectPreviousMove, onSelectNextMove } = props;
+
+  const selectPreviousMove = () => {
+      onSelectPreviousMove();
+  };
+
+  const selectNextMove = () => {
+      onSelectNextMove();
+  };
+
   return (
     <div>
-      <button>previous</button>
-      <button>next</button>
+      <button onClick={selectPreviousMove}>previous</button>
+      <button onClick={selectNextMove}>next</button>
     </div>
   );
 };
