@@ -1,14 +1,18 @@
 import React from 'react';
 
-import getCommentParanthesis from '../functions/getCommentParanthesis';
+import { getCommentSuffix } from '../functions/getCommentParanthesis.js';
 
 const Comment = (props) => {
   const { item, itemIndex, itemArray } = props;
 
   return (
     <span>
-      {getCommentParanthesis(itemArray[itemIndex - 1], item)}
-      {item.comment}{' '}
+      {item.comment}
+      {getCommentSuffix(
+        itemArray[itemIndex - 1],
+        item,
+        itemArray[itemIndex + 1]
+      )}
     </span>
   );
 };
