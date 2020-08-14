@@ -24,8 +24,6 @@ const Chessground = ({ jsonedGame = [], ...props }) => {
     }
   }, [setFen, jsonedGame.length, jsonedGame, fen]);
 
-  console.log(jsonedGame.length); //-> apare de 2 ori / valoare (17,17,16,16...)
-
   let timeout;
   // debounce window resize event
   if (typeof window !== 'undefined') {

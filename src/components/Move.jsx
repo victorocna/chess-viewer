@@ -4,17 +4,17 @@ import { getMovePrefix } from '../functions/getMovePrefix';
 
 const Move = (props) => {
   const { item, itemIndex, itemArray } = props;
-  const { move, fen, depth } = item;
+  const { move, depth } = item;
 
   return depth === 1 ? (
     <b>
       {getMovePrefix(item, itemArray[itemIndex - 1])}
-      {move}{' '}
+      {move && move + ' '}
     </b>
   ) : (
     <i>
       {getMovePrefix(item, itemArray[itemIndex - 1])}
-      {move}{' '}
+      {move && move + ' '}
     </i>
   );
 };

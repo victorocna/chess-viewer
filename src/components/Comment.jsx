@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getCommentSuffix } from '../functions/getCommentParanthesis.js';
+import { getCommentSuffix } from '../functions/getCommentSuffix.js';
 
 const Comment = (props) => {
   const { item, itemIndex, itemArray } = props;
@@ -8,11 +8,7 @@ const Comment = (props) => {
   return (
     <span>
       {item.comment}
-      {getCommentSuffix(
-        itemArray[itemIndex - 1],
-        item,
-        itemArray[itemIndex + 1]
-      )}
+      {getCommentSuffix(item, itemArray[itemIndex + 1])}
     </span>
   );
 };

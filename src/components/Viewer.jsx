@@ -3,7 +3,6 @@ import React from 'react';
 import Comment from './Comment';
 import Move from './Move';
 import { Chessboard } from '.';
-import { jsonedGameToJSX } from '../functions/jsonedGameToJSX';
 import jsonedGame from '../chess-games/partida-tibigi.json';
 
 import '../index.css';
