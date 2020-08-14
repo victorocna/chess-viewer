@@ -1,6 +1,13 @@
 .move-button {
-  margin: 0 0.12rem 0 0;
+  margin-right: 0.12rem;
   padding: 0 0.12rem;
+}
+
+.move-button :focus {
+  outline: none;
+  background-color: greenyellow;
+  color: white;
+  outline: none;
 }
 
 body {

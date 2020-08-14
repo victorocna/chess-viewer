@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
 import { Chessground as ChessgroundWrapper } from '.';
-import { useEffect } from 'react';
 
 /**
  * Chessground wrapper component
  */
 
-const Chessground = ({ jsonedGame = [], ...props }) => {
-  const [fen, setFen] = useState('');
-  const [, setItemsChecked] = useState(0);
+const Chessground = ({ jsonedGame = [], fen = '', ...props }) => {
   const [key, setKey] = useState(Math.random());
-
-  useEffect(() => {
-    if (jsonedGame.length) {
-      if (jsonedGame[0].depth === 1) {
-        setTimeout(() => {
-          setFen(jsonedGame.shift().fen);
-        }, 1000);
-      } else {
-        jsonedGame.shift();
-      }
-      setItemsChecked((i) => i + 1);
-    }
-  }, [setFen, jsonedGame.length, jsonedGame, fen]);
 
   let timeout;
   // debounce window resize event
