@@ -6,15 +6,11 @@ export const getMovePrefix = (thisItem, prevItem) => {
     return false;
   };
 
-  if (thisItem.move && thisItem.fen.includes(' b ')) {
+  if (thisItem.fen.includes(' b ')) {
     return thisItem.fen[thisItem.fen.length - 1] + '.';
   }
 
-  if (
-    thisItem.move &&
-    thisItem.fen.includes(' w ') &&
-    isPreceded(thisItem, prevItem)
-  ) {
+  if (thisItem.fen.includes(' w ') && isPreceded(thisItem, prevItem)) {
     return thisItem.fen[thisItem.fen.length - 1] - 1 + '...';
   }
 

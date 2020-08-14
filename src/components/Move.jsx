@@ -3,19 +3,27 @@ import React from 'react';
 import { getMovePrefix } from '../functions/getMovePrefix';
 
 const Move = (props) => {
-  const { item, itemIndex, itemArray } = props;
-  const { move, depth } = item;
+  const { item, itemIndex, itemArray, onMoveSelectedHandler } = props;
+  const { move, fen, depth } = item;
+
+  const onMoveSelected = (fen) => {
+    onMoveSelectedHandler(fen);
+  };
 
   return depth === 1 ? (
-    <b>
-      {getMovePrefix(item, itemArray[itemIndex - 1])}
-      {move && move + ' '}
-    </b>
+    <button onClick={onMoveSelected(fen)} className="move-button">
+      <b>
+        {getMovePrefix(item, itemArray[itemIndex - 1])}
+        {move}
+      </b>
+    </button>
   ) : (
-    <i>
-      {getMovePrefix(item, itemArray[itemIndex - 1])}
-      {move && move + ' '}
-    </i>
+    <button onClick={onMoveSelected(fen)} className="move-button">
+      <i>
+        {getMovePrefix(item, itemArray[itemIndex - 1])}
+        {move}
+      </i>
+    </button>
   );
 };
 
