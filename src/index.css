@@ -3,11 +3,10 @@
   padding: 0 0.12rem;
 }
 
-.move-button :focus {
-  outline: none;
-  background-color: greenyellow;
+.move-button--active {
+  border-radius: 15%;
+  background-color: darkgreen;
   color: white;
-  outline: none;
 }
 
 body {

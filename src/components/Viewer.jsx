@@ -19,6 +19,7 @@ const Viewer = () => {
       <span key={item.depth + ' ' + item.fen}>
         {item.move && (
           <Move
+            isActive={boardFen === item.fen}
             onMoveSelected={onMoveSelectedHandler}
             item={item}
             itemIndex={index}
@@ -34,8 +35,10 @@ const Viewer = () => {
 
   return (
     <div className="grid lg:grid-cols-2 gap-4 mb-4" tabIndex={0}>
-      <div className="flex">
+      <div className="inline-block">
         <Chessboard fen={boardFen} viewOnly coordinates />
+        <button>previous</button>
+        <button>next</button>
       </div>
       <div className="inline">{jsonedGame.map(showMoves)}</div>
     </div>
