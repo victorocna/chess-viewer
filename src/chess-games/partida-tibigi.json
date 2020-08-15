@@ -39,6 +39,19 @@
     "shapes": []
   },
   {
+    "move": "Rg8",
+    "depth": 2,
+    "fen": "rnbqkbr1/ppp1pppp/5n2/3p2B1/3P4/8/PPP1PPPP/RN1QKBNR w KQkq - 0 3",
+    "comment": "precum in partida Baratosi-Georgescu.dar albul la un joc corect pastreaza += solid",
+    "shapes": []
+  },
+  {
+    "depth": 2,
+    "fen": "rnbqkb1r/pppppppp/5n2/6B1/3P4/8/PPP1PPPP/RN1QKBNR b KQkq - 2 2",
+    "comment": "o alternativa interesanta este recomandarea lui Andrew Martin:",
+    "shapes": []
+  },
+  {
     "move": "d5",
     "depth": 2,
     "fen": "rnbqkb1r/ppp1pppp/5n2/3p2B1/3P4/8/PPP1PPPP/RN1QKBNR w KQkq d6 0 3",
@@ -92,7 +105,6 @@
     "move": "h6",
     "depth": 1,
     "fen": "rnbqkb1r/pppp1pp1/4pn1p/6B1/3PP3/8/PPP2PPP/RN1QKBNR w KQkq - 0 4",
-    "comment": "",
     "shapes": [{ "brush": "red", "orig": "e4", "dest": "" }]
   },
   {

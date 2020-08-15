@@ -4,17 +4,22 @@ const MoveNavigator = (props) => {
   const { onSelectPreviousMove, onSelectNextMove } = props;
 
   const selectPreviousMove = () => {
-      onSelectPreviousMove();
+    onSelectPreviousMove();
   };
 
   const selectNextMove = () => {
-      onSelectNextMove();
+    onSelectNextMove();
   };
 
   return (
-    <div>
-      <button onClick={selectPreviousMove}>previous</button>
-      <button onClick={selectNextMove}>next</button>
+    <div className="flex">
+      <button id="prev-move-button" onClick={selectPreviousMove}>
+        previous
+      </button>
+      <button id="next-move-button" onClick={selectNextMove}>
+        next
+      </button>
+
     </div>
   );
 };

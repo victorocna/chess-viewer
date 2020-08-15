@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Comment from './Comment';
 import Move from './Move';
 import { Chessboard } from '.';
+import { goPreviousMove } from '../functions/goPreviousMove';
+import { goNextMove } from '../functions/goNextMove';
+import { getCommentSuffix } from '../functions/getCommentSuffix';
 import jsonedGame from '../chess-games/partida-tibigi.json';
 
 import '../index.css';
@@ -14,31 +17,42 @@ const Viewer = () => {
     index: 0,
   });
 
+  const [currentVariations, ] = useState(null);
+
+  const handleArrowKeyDown = (event) => {
+    if (event.key === 'ArrowLeft') {
+      onSelectPreviousMoveHandler();
+    }
+    if (event.key === 'ArrowRight') {
+      onSelectNextMoveHandler();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleArrowKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleArrowKeyDown);
+    };
+  });
+
   const onMoveSelectedHandler = (itemIndex) => {
     setCurrentItemInfo({ item: jsonedGame[itemIndex], index: itemIndex });
   };
 
   const onSelectPreviousMoveHandler = () => {
-    if (jsonedGame[currentItemInfo.index - 1]) {
-      setCurrentItemInfo({
-        item: jsonedGame[currentItemInfo.index - 1],
-        index: currentItemInfo.index - 1,
-      });
-    }
+    setCurrentItemInfo(goPreviousMove(jsonedGame, currentItemInfo.index));
   };
 
   const onSelectNextMoveHandler = () => {
-    if (jsonedGame[currentItemInfo.index + 1]) {
-      setCurrentItemInfo({
-        item: jsonedGame[currentItemInfo.index + 1],
-        index: currentItemInfo.index + 1,
-      });
+    if (!currentVariations) {
+      setCurrentItemInfo(goNextMove(jsonedGame, currentItemInfo.index));
     }
   };
 
   const showMoves = (item, index, array) => {
     return (
-      <span key={item.depth + ' ' + item.fen}>
+      <span key={index}>
         {item.move && (
           <Move
             isActive={
@@ -54,12 +68,13 @@ const Viewer = () => {
         {item.comment && (
           <Comment item={item} itemIndex={index} itemArray={array} />
         )}
+        {getCommentSuffix(item, array[index + 1])}
       </span>
     );
   };
 
   return (
-    <div className="grid lg:grid-cols-2 gap-4 mb-4" tabIndex={0}>
+    <div id="viewer" className="grid lg:grid-cols-2 gap-4 mb-4" tabIndex={0}>
       <div className="inline-block">
         <Chessboard fen={currentItemInfo.item.fen} viewOnly coordinates />
         <MoveNavigator
