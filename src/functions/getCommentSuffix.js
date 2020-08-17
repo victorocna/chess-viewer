@@ -6,7 +6,7 @@ export const getCommentSuffix = (thisItem, nextItem) => {
     let depthStep = thisItem.depth - nextItem.depth;
 
     if (depthStep === 0) {
-      if (!areConsecutivePositions(thisItem.fen, nextItem.fen)) {
+      if (!areConsecutivePositions(thisItem.fen, nextItem.move, nextItem.fen)) {
         suffix = suffix.concat(';');
       }
       if (thisItem.comment) {

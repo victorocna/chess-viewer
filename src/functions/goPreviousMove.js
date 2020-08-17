@@ -10,7 +10,11 @@ export const goPreviousMove = (jsonedGame, currentIndex) => {
       if (
         (jsonedGame[i].move || i === 0) &&
         jsonedGame[i].depth <= jsonedGame[currentIndex].depth &&
-        areConsecutivePositions(jsonedGame[i].fen, jsonedGame[currentIndex].fen)
+        areConsecutivePositions(
+          jsonedGame[i].fen,
+          jsonedGame[currentIndex].move,
+          jsonedGame[currentIndex].fen
+        )
       ) {
         return { item: jsonedGame[i], index: i };
       }

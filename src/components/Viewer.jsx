@@ -4,7 +4,7 @@ import Comment from './Comment';
 import Move from './Move';
 import { Chessboard } from '.';
 import { goPreviousMove } from '../functions/goPreviousMove';
-import { goNextMove } from '../functions/goNextMove';
+import { goNextMove } from '../functions/getNextMoves';
 import { getCommentSuffix } from '../functions/getCommentSuffix';
 import jsonedGame from '../chess-games/partida-tibigi.json';
 
@@ -17,8 +17,6 @@ const Viewer = () => {
     index: 0,
   });
 
-  const [currentVariations, ] = useState(null);
-
   const handleArrowKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
       onSelectPreviousMoveHandler();
@@ -29,10 +27,11 @@ const Viewer = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', handleArrowKeyDown);
+    let viewer = document.getElementById('viewer');
+    viewer.addEventListener('keydown', handleArrowKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleArrowKeyDown);
+      viewer.removeEventListener('keydown', handleArrowKeyDown);
     };
   });
 
@@ -45,8 +44,9 @@ const Viewer = () => {
   };
 
   const onSelectNextMoveHandler = () => {
-    if (!currentVariations) {
-      setCurrentItemInfo(goNextMove(jsonedGame, currentItemInfo.index));
+    let nextMove = goNextMove(jsonedGame, currentItemInfo.index);
+    if (nextMove) {
+      setCurrentItemInfo(nextMove);
     }
   };
 

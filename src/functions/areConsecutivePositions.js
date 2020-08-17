@@ -1,13 +1,11 @@
-export const areConsecutivePositions = (fen1, fen2) => {
-  if (fen1.includes(' b ') && fen2.includes(' w ')) {
-    if (fen1[fen1.length - 1] - 0 === fen2[fen2.length - 1] - 1) {
-      return true;
-    }
-  }
-  if (fen1.includes(' w ') && fen2.includes(' b ')) {
-    if (fen1[fen1.length - 1] === fen2[fen2.length - 1]) {
-      return true;
-    }
+import Chess from 'chess.js';
+
+export const areConsecutivePositions = (fen1, move, fen2) => {
+  const game = new Chess(fen1);
+
+  game.move(move);
+  if (game.fen() === fen2) {
+    return true;
   }
 
   return false;
