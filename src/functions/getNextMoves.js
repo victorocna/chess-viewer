@@ -1,6 +1,6 @@
 import { areConsecutiveColorAndMove } from './areConsecutiveColorAndMove';
 
-export const goNextMove = (jsonedGame, currentIndex) => {
+export const getNextMoves = (jsonedGame, currentIndex) => {
   if (currentIndex > jsonedGame.length) {
     throw new Error();
   }
@@ -8,6 +8,10 @@ export const goNextMove = (jsonedGame, currentIndex) => {
   let possibleMoves = [];
 
   if (currentIndex === jsonedGame.length - 1) {
+    return null;
+  } else if (
+    jsonedGame[currentIndex + 1].depth < jsonedGame[currentIndex].depth
+  ) {
     return null;
   } else if (currentIndex + 2 === jsonedGame.length) {
     if (
@@ -56,7 +60,7 @@ export const goNextMove = (jsonedGame, currentIndex) => {
     if (
       jsonedGame[mainlineIndex + 1].depth === jsonedGame[currentIndex].depth
     ) {
-      return possibleMoves[0];
+      return possibleMoves;
     } else if (
       jsonedGame[mainlineIndex + 1].depth - 1 ===
       jsonedGame[currentIndex].depth
@@ -83,9 +87,5 @@ export const goNextMove = (jsonedGame, currentIndex) => {
     }
   }
 
-  console.log(possibleMoves);
-
-  return possibleMoves.length > 0
-    ? possibleMoves[0]
-    : { item: jsonedGame[currentIndex], index: currentIndex };
+  return possibleMoves;
 };
