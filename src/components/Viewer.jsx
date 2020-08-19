@@ -5,12 +5,13 @@ import Move from './Move';
 import { Chessboard } from '.';
 import { goPreviousMove } from '../functions/goPreviousMove';
 import { getNextMoves } from '../functions/getNextMoves';
-import { getCommentSuffix } from '../functions/getCommentSuffix';
+// import { getCommentSuffix } from '../functions/getCommentSuffix';
 import jsonedGame from '../chess-games/partida-tibigi.json';
 
-import '../index.css';
+// import '../index.css'; // NOTE: not needed here, it is already imported
 import MoveNavigator from './MoveNavigator';
 import MoveChoiceModal from './MoveChoiceModal';
+// NOTE: don't forget about destructured imports
 
 const Viewer = () => {
   const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
@@ -54,10 +55,12 @@ const Viewer = () => {
   };
 
   const showMoves = (item, index, array) => {
+    const { comment, depth } = item;
     return (
       <span key={index}>
         {item.move && (
           <Move
+          // NOTE: this is the perfect place for an isMoveActive function
             isActive={
               currentItem.fen === item.fen && currentItem.depth === item.depth
             }
@@ -67,10 +70,10 @@ const Viewer = () => {
             itemArray={array}
           />
         )}
-        {item.comment && (
-          <Comment item={item} itemIndex={index} itemArray={array} />
-        )}
-        {getCommentSuffix(item, array[index + 1])}
+        {/* IMPORTANT NOTE: try to pass just what you need to components */}
+        {comment && <Comment comment={comment} depth={depth} />}
+        {/* NOTE: not needed, i guess. they will have different css styles based on depth */}
+        {/* {getCommentSuffix(item, array[index + 1])} */}
       </span>
     );
   };

@@ -4,8 +4,9 @@ import { Chessground as ChessgroundWrapper } from '.';
 /**
  * Chessground wrapper component
  */
-
-const Chessground = ({ jsonedGame = [], fen = '', ...props }) => {
+// NOTE: when you just pass the props to the next component, one optimization
+// is NOT to destructure them and just pass them along
+const Chessground = (props) => {
   const [key, setKey] = useState(Math.random());
 
   let timeout;
@@ -22,7 +23,7 @@ const Chessground = ({ jsonedGame = [], fen = '', ...props }) => {
       key={key}
       className="main-board green neo my-2 overflow-hidden rounded"
     >
-      <ChessgroundWrapper {...props} fen={fen} />
+      <ChessgroundWrapper {...props} />
     </div>
   );
 };
