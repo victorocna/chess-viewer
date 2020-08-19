@@ -1,3 +1,5 @@
+import { getMoveNumber } from './getMoveNumber';
+
 export const getMovePrefix = (thisItem, prevItem) => {
   const isPreceded = (thisItem, prevItem) => {
     if (prevItem.comment || prevItem.depth !== thisItem.depth) {
@@ -7,12 +9,12 @@ export const getMovePrefix = (thisItem, prevItem) => {
   };
 
   if (thisItem.fen.includes(' b ')) {
-    return thisItem.fen[thisItem.fen.length - 1] + '.';
+    return getMoveNumber(thisItem.fen) + '.';
   }
 
   if (thisItem.fen.includes(' w ') && isPreceded(thisItem, prevItem)) {
-    return thisItem.fen[thisItem.fen.length - 1] - 1 + '...';
+    return getMoveNumber(thisItem.fen) + '...';
   }
 
-  return '';
+  return "";
 };

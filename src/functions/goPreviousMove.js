@@ -16,10 +16,10 @@ export const goPreviousMove = (jsonedGame, currentIndex) => {
           jsonedGame[currentIndex].fen
         )
       ) {
-        return { item: jsonedGame[i], index: i };
+        return jsonedGame[i];
       }
     }
   }
 
-  return { item: jsonedGame[currentIndex], index: currentIndex };
+  return jsonedGame[currentIndex];
 };

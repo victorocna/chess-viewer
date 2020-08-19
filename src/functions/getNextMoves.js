@@ -13,14 +13,11 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
     jsonedGame[currentIndex + 1].depth < jsonedGame[currentIndex].depth
   ) {
     return null;
-  } else if (currentIndex + 2 === jsonedGame.length) {
+  } else if (currentIndex + 1 === jsonedGame.length - 1) {
     if (
       jsonedGame[jsonedGame.length - 1].depth === jsonedGame[currentIndex].depth
     ) {
-      possibleMoves.push({
-        item: jsonedGame[currentIndex + 1],
-        index: currentIndex + 1,
-      });
+      possibleMoves.push(jsonedGame[currentIndex + 1]);
     } else {
       return null;
     }
@@ -34,7 +31,7 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
         if (jsonedGame[i].depth !== jsonedGame[currentIndex].depth) {
           continue;
         } else {
-          possibleMoves.push({ item: jsonedGame[i], index: i });
+          possibleMoves.push(jsonedGame[i]);
           mainlineIndex = i;
           break;
         }
@@ -48,10 +45,7 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
           jsonedGame[currentIndex + 1].fen
         )
       ) {
-        possibleMoves.push({
-          item: jsonedGame[currentIndex + 1],
-          index: currentIndex + 1,
-        });
+        possibleMoves.push(jsonedGame[currentIndex + 1]);
         mainlineIndex = currentIndex + 1;
       } else {
         return null;
@@ -80,7 +74,7 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
               jsonedGame[i].fen
             )
           ) {
-            possibleMoves.push({ item: jsonedGame[i], index: i });
+            possibleMoves.push(jsonedGame[i]);
           }
         }
       }
