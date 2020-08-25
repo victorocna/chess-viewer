@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 
-import Comment from './Comment';
-import Move from './Move';
-import { Chessboard } from '.';
-import { goPreviousMove } from '../functions/goPreviousMove';
-import { getNextMoves } from '../functions/getNextMoves';
-// import { getCommentSuffix } from '../functions/getCommentSuffix';
+import {
+  Chessboard,
+  Move,
+  Comment,
+  MoveChoiceModal,
+  Previous,
+  Next,
+  Flip,
+} from '.';
+import { goPreviousMove, getNextMoves } from '../functions';
 import jsonedGame from '../chess-games/partida-tibigi.json';
 
-// import '../index.css'; // NOTE: not needed here, it is already imported
-import MoveNavigator from './MoveNavigator';
-import MoveChoiceModal from './MoveChoiceModal';
-// NOTE: don't forget about destructured imports
-
 const Viewer = () => {
+  const [isWhiteSide, setIsWhiteSide] = useState(true);
   const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
   const [currentVariations, setCurrentVariations] = useState(null);
 
@@ -45,6 +45,10 @@ const Viewer = () => {
     }
   };
 
+  const onFlipBoardHandler = () => {
+    setIsWhiteSide(!isWhiteSide);
+  };
+
   const onVariationPickedHandler = (moveIndex) => {
     setCurrentItem(jsonedGame[moveIndex]);
     setCurrentVariations(null);
@@ -54,26 +58,28 @@ const Viewer = () => {
     setCurrentVariations(null);
   };
 
+  const isMoveActive = (currentItem, item) => {
+    try {
+      return currentItem.fen === item.fen && currentItem.depth === item.depth;
+    } catch (err) {
+      return false;
+    }
+  };
+
   const showMoves = (item, index, array) => {
     const { comment, depth } = item;
     return (
       <span key={index}>
         {item.move && (
           <Move
-          // NOTE: this is the perfect place for an isMoveActive function
-            isActive={
-              currentItem.fen === item.fen && currentItem.depth === item.depth
-            }
+            isActive={isMoveActive(currentItem, item)}
             onMoveSelected={onMoveSelectedHandler}
             item={item}
             itemIndex={index}
             itemArray={array}
           />
         )}
-        {/* IMPORTANT NOTE: try to pass just what you need to components */}
         {comment && <Comment comment={comment} depth={depth} />}
-        {/* NOTE: not needed, i guess. they will have different css styles based on depth */}
-        {/* {getCommentSuffix(item, array[index + 1])} */}
       </span>
     );
   };
@@ -92,11 +98,15 @@ const Viewer = () => {
             variations={currentVariations}
           />
         )}
-        <Chessboard fen={currentItem.fen} viewOnly coordinates />
-        <MoveNavigator
-          onSelectPreviousMove={onSelectPreviousMoveHandler}
-          onSelectNextMove={onSelectNextMoveHandler}
+        <Chessboard
+          orientation={isWhiteSide ? 'white' : 'black'}
+          fen={currentItem.fen}
+          viewOnly
+          coordinates
         />
+        <Previous onClick={onSelectPreviousMoveHandler} />
+        <Next onClick={onSelectNextMoveHandler} />
+        <Flip onClick={onFlipBoardHandler} />
       </div>
       <div className="inline">{jsonedGame.map(showMoves)}</div>
     </div>

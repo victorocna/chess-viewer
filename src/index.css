@@ -1,3 +1,12 @@
+/* button:focus {
+  outline: 0;
+} */
+
+button:active {
+  position: relative;
+  top: 1px;
+}
+
 .move-button {
   margin-right: 0.12rem;
   padding: 0 0.12rem;
