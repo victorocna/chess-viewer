@@ -10,10 +10,6 @@ const MoveChoiceModal = ({
   const ref = useRef(null);
   const [focusedButtonIndex, setFocusedButtonIndex] = useState(null);
 
-  const closeModal = () => {
-    onCloseModal();
-  };
-
   useEffect(() => {
     setFocusedButtonIndex(0);
     ref.current.children[0].focus();
@@ -42,16 +38,17 @@ const MoveChoiceModal = ({
       }
     }
     if (event.key === 'ArrowLeft') {
-      closeModal();
+      onCloseModal();
     }
     if (event.key === 'ArrowRight') {
-      ref.current.children[focusedButtonIndex].click();
+      onVariationPicked(variations[focusedButtonIndex].index);
     }
   };
 
   const showVariations = ({ index, move }) => {
     return (
       <button
+        type="button"
         className="w-full"
         onClick={() => onVariationPicked(index)}
         key={move + ' ' + index}
@@ -62,7 +59,7 @@ const MoveChoiceModal = ({
   };
 
   return (
-    <Modali.Modal isModalVisible={true} hide={closeModal}>
+    <Modali.Modal isModalVisible={true} hide={onCloseModal}>
       <div ref={ref} onKeyDown={onKeyDownHandler}>
         {variations.map(showVariations)}
       </div>

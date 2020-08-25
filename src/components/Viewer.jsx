@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import {
   Chessboard,
@@ -13,6 +13,7 @@ import { goPreviousMove, getNextMoves } from '../functions';
 import jsonedGame from '../chess-games/partida-tibigi.json';
 
 const Viewer = () => {
+  const ref = useRef(null);
   const [isWhiteSide, setIsWhiteSide] = useState(true);
   const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
   const [currentVariations, setCurrentVariations] = useState(null);
@@ -52,10 +53,12 @@ const Viewer = () => {
   const onVariationPickedHandler = (moveIndex) => {
     setCurrentItem(jsonedGame[moveIndex]);
     setCurrentVariations(null);
+    ref.current.focus();
   };
 
   const onCloseModalHandler = () => {
     setCurrentVariations(null);
+    ref.current.focus();
   };
 
   const isMoveActive = (currentItem, item) => {
@@ -86,6 +89,7 @@ const Viewer = () => {
 
   return (
     <div
+      ref={ref}
       onKeyDown={handleArrowKeyDown}
       className="grid lg:grid-cols-2 gap-4 mb-4"
       tabIndex={0}
