@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 import {
   Chessboard,
@@ -10,33 +10,32 @@ import {
   Flip,
 } from '.';
 import { goPreviousMove, getNextMoves } from '../functions';
-import jsonedGame from '../chess-games/partida-tibigi.json';
 
-const Viewer = () => {
-  const ref = useRef(null);
+const Viewer = ({ pgn }) => {
   const [isWhiteSide, setIsWhiteSide] = useState(true);
-  const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
+  const [currentItem, setCurrentItem] = useState(pgn[0]);
   const [currentVariations, setCurrentVariations] = useState(null);
 
-  const handleArrowKeyDown = (event) => {
+  const onKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
-      onSelectPreviousMoveHandler();
+      previousMove();
     }
     if (event.key === 'ArrowRight') {
-      onSelectNextMoveHandler();
+      nextMove();
     }
   };
 
-  const onMoveSelectedHandler = (itemIndex) => {
-    setCurrentItem(jsonedGame[itemIndex]);
+  const onMoveSelected = (itemIndex) => {
+    setCurrentItem(pgn[itemIndex]);
   };
 
-  const onSelectPreviousMoveHandler = () => {
-    setCurrentItem(goPreviousMove(jsonedGame, currentItem.index));
+  const previousMove = () => {
+    setCurrentVariations(null);
+    setCurrentItem(goPreviousMove(pgn, currentItem.index));
   };
 
-  const onSelectNextMoveHandler = () => {
-    let nextMoves = getNextMoves(jsonedGame, currentItem.index);
+  const nextMove = () => {
+    let nextMoves = getNextMoves(pgn, currentItem.index);
     if (nextMoves) {
       if (nextMoves.length === 1) {
         setCurrentItem(nextMoves[0]);
@@ -46,19 +45,12 @@ const Viewer = () => {
     }
   };
 
-  const onFlipBoardHandler = () => {
+  const flip = () => {
     setIsWhiteSide(!isWhiteSide);
   };
 
-  const onVariationPickedHandler = (moveIndex) => {
-    setCurrentItem(jsonedGame[moveIndex]);
-    setCurrentVariations(null);
-    ref.current.focus();
-  };
-
-  const onCloseModalHandler = () => {
-    setCurrentVariations(null);
-    ref.current.focus();
+  const chooseVariation = (moveIndex) => {
+    setCurrentItem(pgn[moveIndex]);
   };
 
   const isMoveActive = (currentItem, item) => {
@@ -71,15 +63,17 @@ const Viewer = () => {
 
   const showMoves = (item, index, array) => {
     const { comment, depth } = item;
+    const previous = array[index - 1];
+
     return (
       <span key={index}>
         {item.move && (
           <Move
             isActive={isMoveActive(currentItem, item)}
-            onMoveSelected={onMoveSelectedHandler}
+            onMoveSelected={onMoveSelected}
             item={item}
             itemIndex={index}
-            itemArray={array}
+            previous={previous}
           />
         )}
         {comment && <Comment comment={comment} depth={depth} />}
@@ -89,16 +83,14 @@ const Viewer = () => {
 
   return (
     <div
-      ref={ref}
-      onKeyDown={handleArrowKeyDown}
+      onKeyDown={onKeyDown}
       className="grid lg:grid-cols-2 gap-4 mb-4"
       tabIndex={0}
     >
       <div className="inline-block">
         {currentVariations && (
           <MoveChoiceModal
-            onVariationPicked={onVariationPickedHandler}
-            onCloseModal={onCloseModalHandler}
+            chooseVariation={chooseVariation}
             variations={currentVariations}
           />
         )}
@@ -108,11 +100,11 @@ const Viewer = () => {
           viewOnly
           coordinates
         />
-        <Previous onClick={onSelectPreviousMoveHandler} />
-        <Next onClick={onSelectNextMoveHandler} />
-        <Flip onClick={onFlipBoardHandler} />
+        <Previous onClick={previousMove} />
+        <Next onClick={nextMove} />
+        <Flip onClick={flip} />
       </div>
-      <div className="inline">{jsonedGame.map(showMoves)}</div>
+      <div className="inline">{pgn.map(showMoves)}</div>
     </div>
   );
 };

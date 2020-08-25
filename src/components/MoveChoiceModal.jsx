@@ -1,56 +1,40 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { Modal } from 'react-bootstrap';
 
-import Modali from 'modali';
-
-const MoveChoiceModal = ({
-  onVariationPicked = () => {},
-  onCloseModal = () => {},
-  variations = null,
-}) => {
+const MoveChoiceModal = ({ chooseVariation, variations }) => {
   const ref = useRef(null);
-  const [focusedButtonIndex, setFocusedButtonIndex] = useState(null);
+  const [show, setShow] = useState(true);
+  const [focus, setFocus] = useState(0);
 
-  useEffect(() => {
-    setFocusedButtonIndex(0);
-    ref.current.children[0].focus();
-  }, [setFocusedButtonIndex]);
-
-  const onKeyDownHandler = (event) => {
+  const onKeyDown = (event) => {
     if (event.key === 'ArrowDown') {
-      ref.current.children[
-        (focusedButtonIndex + 1) % ref.current.children.length
-      ].focus();
-      setFocusedButtonIndex(
-        (focusedButtonIndex + 1) % ref.current.children.length
-      );
+      setFocus((focus + 1) % variations.length);
     }
     if (event.key === 'ArrowUp') {
-      if (focusedButtonIndex === 0) {
-        ref.current.children[ref.current.children.length - 1].focus();
-        setFocusedButtonIndex(ref.current.children.length - 1);
-      } else {
-        ref.current.children[
-          (focusedButtonIndex - 1) % ref.current.children.length
-        ].focus();
-        setFocusedButtonIndex(
-          (focusedButtonIndex - 1) % ref.current.children.length
-        );
-      }
+      setFocus((focus - 1 + variations.length) % variations.length);
     }
     if (event.key === 'ArrowLeft') {
-      onCloseModal();
+      setShow(false);
     }
     if (event.key === 'ArrowRight') {
-      onVariationPicked(variations[focusedButtonIndex].index);
+      chooseVariation(variations[focus].index);
+      setShow(false);
     }
   };
 
-  const showVariations = ({ index, move }) => {
+  const showVariations = ({ index, move }, current) => {
+    const classes = ['w-full'];
+    if (focus === current) {
+      classes.push('bg-green-200');
+    }
+
     return (
       <button
-        type="button"
-        className="w-full"
-        onClick={() => onVariationPicked(index)}
+        className={classes.join(' ')}
+        onClick={() => {
+          chooseVariation(index);
+          setShow(false);
+        }}
         key={move + ' ' + index}
       >
         {move}
@@ -59,11 +43,18 @@ const MoveChoiceModal = ({
   };
 
   return (
-    <Modali.Modal isModalVisible={true} hide={onCloseModal}>
-      <div ref={ref} onKeyDown={onKeyDownHandler}>
+    <Modal
+      show={show}
+      onHide={() => setShow(false)}
+      onEntered={() => ref.current.focus()}
+      backdrop="static"
+      autoFocus
+      centered
+    >
+      <Modal.Body ref={ref} onKeyDown={onKeyDown} tabIndex={0}>
         {variations.map(showVariations)}
-      </div>
-    </Modali.Modal>
+      </Modal.Body>
+    </Modal>
   );
 };
 

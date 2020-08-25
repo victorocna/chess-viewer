@@ -3,7 +3,7 @@ import React from 'react';
 import { getMovePrefix } from '../functions/getMovePrefix';
 
 const Move = (props) => {
-  const { item, itemIndex, itemArray, isActive, onMoveSelected } = props;
+  const { item, itemIndex, previous, isActive, onMoveSelected } = props;
   const { move, depth } = item;
 
   const selectMove = () => {
@@ -16,7 +16,7 @@ const Move = (props) => {
       className={`move-button ${isActive && 'move-button--active'}`}
     >
       <b>
-        {getMovePrefix(item, itemArray[itemIndex - 1])}
+        {getMovePrefix(item, previous)}
         {move}
       </b>
     </button>
@@ -26,7 +26,7 @@ const Move = (props) => {
       className={`move-button ${isActive && 'move-button--active'}`}
     >
       <i>
-        {getMovePrefix(item, itemArray[itemIndex - 1])}
+        {getMovePrefix(item, previous)}
         {move}
       </i>
     </button>
