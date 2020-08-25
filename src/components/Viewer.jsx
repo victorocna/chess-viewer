@@ -17,24 +17,25 @@ const Viewer = () => {
   const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
   const [currentVariations, setCurrentVariations] = useState(null);
 
-  const handleArrowKeyDown = (event) => {
+  const onKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
-      onSelectPreviousMoveHandler();
+      previousMove();
     }
     if (event.key === 'ArrowRight') {
-      onSelectNextMoveHandler();
+      nextMove();
     }
   };
 
-  const onMoveSelectedHandler = (itemIndex) => {
+  const onMoveSelected = (itemIndex) => {
     setCurrentItem(jsonedGame[itemIndex]);
   };
 
-  const onSelectPreviousMoveHandler = () => {
+  const previousMove = () => {
+    setCurrentVariations(null);
     setCurrentItem(goPreviousMove(jsonedGame, currentItem.index));
   };
 
-  const onSelectNextMoveHandler = () => {
+  const nextMove = () => {
     let nextMoves = getNextMoves(jsonedGame, currentItem.index);
     if (nextMoves) {
       if (nextMoves.length === 1) {
@@ -45,17 +46,12 @@ const Viewer = () => {
     }
   };
 
-  const onFlipBoardHandler = () => {
+  const flip = () => {
     setIsWhiteSide(!isWhiteSide);
   };
 
-  const onVariationPickedHandler = (moveIndex) => {
+  const chooseVariation = (moveIndex) => {
     setCurrentItem(jsonedGame[moveIndex]);
-    setCurrentVariations(null);
-  };
-
-  const onCloseModalHandler = () => {
-    setCurrentVariations(null);
   };
 
   const isMoveActive = (currentItem, item) => {
@@ -68,15 +64,17 @@ const Viewer = () => {
 
   const showMoves = (item, index, array) => {
     const { comment, depth } = item;
+    const previous = array[index - 1];
+
     return (
       <span key={index}>
         {item.move && (
           <Move
             isActive={isMoveActive(currentItem, item)}
-            onMoveSelected={onMoveSelectedHandler}
+            onMoveSelected={onMoveSelected}
             item={item}
             itemIndex={index}
-            itemArray={array}
+            previous={previous}
           />
         )}
         {comment && <Comment comment={comment} depth={depth} />}
@@ -86,15 +84,14 @@ const Viewer = () => {
 
   return (
     <div
-      onKeyDown={handleArrowKeyDown}
+      onKeyDown={onKeyDown}
       className="grid lg:grid-cols-2 gap-4 mb-4"
       tabIndex={0}
     >
       <div className="inline-block">
         {currentVariations && (
           <MoveChoiceModal
-            onVariationPicked={onVariationPickedHandler}
-            onCloseModal={onCloseModalHandler}
+            chooseVariation={chooseVariation}
             variations={currentVariations}
           />
         )}
@@ -104,9 +101,9 @@ const Viewer = () => {
           viewOnly
           coordinates
         />
-        <Previous onClick={onSelectPreviousMoveHandler} />
-        <Next onClick={onSelectNextMoveHandler} />
-        <Flip onClick={onFlipBoardHandler} />
+        <Previous onClick={previousMove} />
+        <Next onClick={nextMove} />
+        <Flip onClick={flip} />
       </div>
       <div className="inline">{jsonedGame.map(showMoves)}</div>
     </div>
