@@ -10,11 +10,10 @@ import {
   Flip,
 } from '.';
 import { goPreviousMove, getNextMoves } from '../functions';
-import jsonedGame from '../chess-games/partida-tibigi.json';
 
-const Viewer = () => {
+const Viewer = ({ pgn }) => {
   const [isWhiteSide, setIsWhiteSide] = useState(true);
-  const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
+  const [currentItem, setCurrentItem] = useState(pgn[0]);
   const [currentVariations, setCurrentVariations] = useState(null);
 
   const onKeyDown = (event) => {
@@ -27,16 +26,16 @@ const Viewer = () => {
   };
 
   const onMoveSelected = (itemIndex) => {
-    setCurrentItem(jsonedGame[itemIndex]);
+    setCurrentItem(pgn[itemIndex]);
   };
 
   const previousMove = () => {
     setCurrentVariations(null);
-    setCurrentItem(goPreviousMove(jsonedGame, currentItem.index));
+    setCurrentItem(goPreviousMove(pgn, currentItem.index));
   };
 
   const nextMove = () => {
-    let nextMoves = getNextMoves(jsonedGame, currentItem.index);
+    let nextMoves = getNextMoves(pgn, currentItem.index);
     if (nextMoves) {
       if (nextMoves.length === 1) {
         setCurrentItem(nextMoves[0]);
@@ -51,7 +50,7 @@ const Viewer = () => {
   };
 
   const chooseVariation = (moveIndex) => {
-    setCurrentItem(jsonedGame[moveIndex]);
+    setCurrentItem(pgn[moveIndex]);
   };
 
   const isMoveActive = (currentItem, item) => {
@@ -105,7 +104,7 @@ const Viewer = () => {
         <Next onClick={nextMove} />
         <Flip onClick={flip} />
       </div>
-      <div className="inline">{jsonedGame.map(showMoves)}</div>
+      <div className="inline">{pgn.map(showMoves)}</div>
     </div>
   );
 };
