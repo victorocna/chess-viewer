@@ -31,7 +31,10 @@ const MoveChoiceModal = ({ chooseVariation, variations }) => {
     return (
       <button
         className={classes.join(' ')}
-        onClick={() => chooseVariation(index)}
+        onClick={() => {
+          chooseVariation(index);
+          setShow(false);
+        }}
         key={move + ' ' + index}
       >
         {move}
@@ -44,6 +47,7 @@ const MoveChoiceModal = ({ chooseVariation, variations }) => {
       show={show}
       onHide={() => setShow(false)}
       onEntered={() => ref.current.focus()}
+      backdrop="static"
       autoFocus
       centered
     >
