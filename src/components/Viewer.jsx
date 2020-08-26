@@ -9,7 +9,7 @@ import {
   Next,
   Flip,
 } from '.';
-import { goPreviousMove, getNextMoves } from '../functions';
+import { getPreviousMove, getNextMoves } from '../functions';
 
 const Viewer = ({ pgn }) => {
   const [isWhiteSide, setIsWhiteSide] = useState(true);
@@ -26,12 +26,13 @@ const Viewer = ({ pgn }) => {
   };
 
   const onMoveSelected = (itemIndex) => {
+    setCurrentVariations(null);
     setCurrentItem(pgn[itemIndex]);
   };
 
   const previousMove = () => {
     setCurrentVariations(null);
-    setCurrentItem(goPreviousMove(pgn, currentItem.index));
+    setCurrentItem(getPreviousMove(pgn, currentItem.index));
   };
 
   const nextMove = () => {
@@ -90,6 +91,7 @@ const Viewer = ({ pgn }) => {
       <div className="inline-block">
         {currentVariations && (
           <MoveChoiceModal
+            pgn={pgn}
             chooseVariation={chooseVariation}
             variations={currentVariations}
           />

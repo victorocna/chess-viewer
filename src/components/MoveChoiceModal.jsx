@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 
-const MoveChoiceModal = ({ chooseVariation, variations }) => {
+import { getMainline, getMovesString } from '../functions';
+
+const MoveChoiceModal = ({ pgn, chooseVariation, variations }) => {
   const ref = useRef(null);
   const [show, setShow] = useState(true);
   const [focus, setFocus] = useState(0);
@@ -37,7 +39,7 @@ const MoveChoiceModal = ({ chooseVariation, variations }) => {
         }}
         key={move + ' ' + index}
       >
-        {move}
+        {getMovesString(getMainline(pgn, index, 5))}
       </button>
     );
   };

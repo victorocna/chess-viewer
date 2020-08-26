@@ -1,6 +1,6 @@
 import { areConsecutivePositions } from './areConsecutivePositions';
 
-export const goPreviousMove = (jsonedGame, currentIndex) => {
+export const getPreviousMove = (jsonedGame, currentIndex) => {
   if (currentIndex > jsonedGame.length) {
     throw new Error();
   }

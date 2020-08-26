@@ -1,61 +1,71 @@
 import { areConsecutiveColorAndMove } from './areConsecutiveColorAndMove';
 
 export const getNextMoves = (jsonedGame, currentIndex) => {
-  if (currentIndex > jsonedGame.length) {
+  if (currentIndex >= jsonedGame.length) {
     throw new Error();
+  }
+
+  if (currentIndex === jsonedGame.length - 1) {
+    return null;
+  }
+
+  if (jsonedGame[currentIndex + 1].depth < jsonedGame[currentIndex].depth) {
+    return null;
   }
 
   let possibleMoves = [];
 
-  if (currentIndex === jsonedGame.length - 1) {
-    return null;
-  } else if (
-    jsonedGame[currentIndex + 1].depth < jsonedGame[currentIndex].depth
-  ) {
-    return null;
-  } else if (currentIndex + 1 === jsonedGame.length - 1) {
+  if (currentIndex + 1 === jsonedGame.length - 1) {
     if (
-      jsonedGame[jsonedGame.length - 1].depth === jsonedGame[currentIndex].depth
+      jsonedGame[jsonedGame.length - 1].depth !== jsonedGame[currentIndex].depth
     ) {
-      possibleMoves.push(jsonedGame[currentIndex + 1]);
-    } else {
       return null;
+    } else {
+      if (
+        areConsecutiveColorAndMove(
+          jsonedGame[currentIndex].fen,
+          jsonedGame[currentIndex + 1].fen
+        ) &&
+        jsonedGame[currentIndex + 1].move
+      ) {
+        possibleMoves.push(jsonedGame[currentIndex + 1]);
+      } else {
+        return null;
+      }
     }
-  } else if (currentIndex + 2 <= jsonedGame.length) {
+  }
+
+  if (currentIndex + 1 < jsonedGame.length - 1) {
     let mainlineIndex;
     if (
       jsonedGame[currentIndex + 1].depth - 1 ===
       jsonedGame[currentIndex].depth
     ) {
       for (let i = currentIndex + 2; i < jsonedGame.length; i++) {
-        if (jsonedGame[i].depth !== jsonedGame[currentIndex].depth) {
-          continue;
-        } else {
+        if (
+          jsonedGame[i].depth === jsonedGame[currentIndex].depth &&
+          jsonedGame[i].move
+        ) {
           possibleMoves.push(jsonedGame[i]);
           mainlineIndex = i;
           break;
+        } else {
+          continue;
         }
       }
     } else if (
-      jsonedGame[currentIndex + 1].depth === jsonedGame[currentIndex].depth
+      areConsecutiveColorAndMove(
+        jsonedGame[currentIndex].fen,
+        jsonedGame[currentIndex + 1].fen
+      )
     ) {
-      if (
-        areConsecutiveColorAndMove(
-          jsonedGame[currentIndex].fen,
-          jsonedGame[currentIndex + 1].fen
-        )
-      ) {
-        possibleMoves.push(jsonedGame[currentIndex + 1]);
-        mainlineIndex = currentIndex + 1;
-      } else {
-        return null;
-      }
+      possibleMoves.push(jsonedGame[currentIndex + 1]);
+      mainlineIndex = currentIndex + 1;
+    } else {
+      return null;
     }
+
     if (
-      jsonedGame[mainlineIndex + 1].depth === jsonedGame[currentIndex].depth
-    ) {
-      return possibleMoves;
-    } else if (
       jsonedGame[mainlineIndex + 1].depth - 1 ===
       jsonedGame[currentIndex].depth
     ) {
@@ -72,7 +82,8 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
             areConsecutiveColorAndMove(
               jsonedGame[currentIndex].fen,
               jsonedGame[i].fen
-            )
+            ) &&
+            jsonedGame[i].move
           ) {
             possibleMoves.push(jsonedGame[i]);
           }

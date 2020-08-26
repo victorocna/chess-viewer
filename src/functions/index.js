@@ -4,7 +4,9 @@ import { getCommentSuffix } from './getCommentSuffix';
 import { getMoveNumber } from './getMoveNumber';
 import { getMovePrefix } from './getMovePrefix';
 import { getNextMoves } from './getNextMoves';
-import { goPreviousMove } from './goPreviousMove';
+import { getPreviousMove } from './getPreviousMove';
+import { getMainline } from './getMainline';
+import { getMovesString } from './getMovesString';
 
 export {
   areConsecutiveColorAndMove,
@@ -13,5 +15,7 @@ export {
   getMoveNumber,
   getMovePrefix,
   getNextMoves,
-  goPreviousMove,
+  getPreviousMove,
+  getMainline,
+  getMovesString,
 };
