@@ -10,7 +10,9 @@ export const getMainline = (jsonedGame, moveIndex, numberOfMoves) => {
   if (numberOfMoves) {
     for (
       let i = moveIndex;
-      i < jsonedGame.length - 1 && movesFound.length < numberOfMoves;
+      i < jsonedGame.length &&
+      movesFound.length < numberOfMoves &&
+      jsonedGame[i].move;
       i++
     ) {
       if (jsonedGame[moveIndex].depth !== jsonedGame[i].depth) {
@@ -23,7 +25,11 @@ export const getMainline = (jsonedGame, moveIndex, numberOfMoves) => {
       }
     }
   } else {
-    for (let i = moveIndex; i < jsonedGame.length - 1; i++) {
+    for (
+      let i = moveIndex;
+      i < jsonedGame.length && jsonedGame[i].move;
+      i++
+    ) {
       if (jsonedGame[moveIndex].depth !== jsonedGame[i].depth) {
         continue;
       }

@@ -65,9 +65,13 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
       return null;
     }
 
+    if (!mainlineIndex) {
+      return null;
+    }
+
     if (
-      jsonedGame[mainlineIndex + 1].depth - 1 ===
-      jsonedGame[currentIndex].depth
+      jsonedGame[mainlineIndex + 1] &&
+      jsonedGame[mainlineIndex + 1].depth - 1 === jsonedGame[currentIndex].depth
     ) {
       for (
         let i = mainlineIndex + 1;
