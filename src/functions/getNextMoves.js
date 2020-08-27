@@ -41,7 +41,6 @@ export const getNextMoves = (jsonedGame, currentIndex) => {
       jsonedGame[currentIndex + 1].depth - 1 ===
       jsonedGame[currentIndex].depth
     ) {
-      console.log('here');
       for (let i = currentIndex + 2; i < jsonedGame.length; i++) {
         if (
           jsonedGame[i].depth === jsonedGame[currentIndex].depth &&

@@ -12,7 +12,7 @@ export const getMovePrefix = (thisItem, prevItem) => {
     return getMoveNumber(thisItem.fen) + '. ';
   }
 
-  if (thisItem.fen.includes(' w ') && isPreceded(thisItem, prevItem)) {
+  if (thisItem.fen.includes(' w ') && isPreceded(prevItem)) {
     return getMoveNumber(thisItem.fen) + '... ';
   }
 
