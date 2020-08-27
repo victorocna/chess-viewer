@@ -1,30 +1,31 @@
 import React, { useState, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 
-import { getMainline, getMovesString } from '../functions';
-
-const MoveChoiceModal = ({ pgn, chooseVariation, variations }) => {
+const MoveChoiceModal = ({
+  chooseVariation,
+  varObj,
+}) => {
   const ref = useRef(null);
   const [show, setShow] = useState(true);
   const [focus, setFocus] = useState(0);
 
   const onKeyDown = (event) => {
     if (event.key === 'ArrowDown') {
-      setFocus((focus + 1) % variations.length);
+      setFocus((focus + 1) % varObj.length);
     }
     if (event.key === 'ArrowUp') {
-      setFocus((focus - 1 + variations.length) % variations.length);
+      setFocus((focus - 1 + varObj.length) % varObj.length);
     }
     if (event.key === 'ArrowLeft') {
       setShow(false);
     }
     if (event.key === 'ArrowRight') {
-      chooseVariation(variations[focus].index);
+      chooseVariation(varObj[focus].moment.index);
       setShow(false);
     }
   };
 
-  const showVariations = ({ index, move }, current) => {
+  const showVariations = ({ moment, written }, current) => {
     const classes = ['w-full'];
     if (focus === current) {
       classes.push('bg-green-200');
@@ -34,12 +35,12 @@ const MoveChoiceModal = ({ pgn, chooseVariation, variations }) => {
       <button
         className={classes.join(' ')}
         onClick={() => {
-          chooseVariation(index);
+          chooseVariation(moment.index);
           setShow(false);
         }}
-        key={move + ' ' + index}
+        key={moment.move + ' ' + moment.index}
       >
-        {getMovesString(getMainline(pgn, index, 5))}
+        {written}
       </button>
     );
   };
@@ -54,7 +55,7 @@ const MoveChoiceModal = ({ pgn, chooseVariation, variations }) => {
       centered
     >
       <Modal.Body ref={ref} onKeyDown={onKeyDown} tabIndex={0}>
-        {variations.map(showVariations)}
+        {varObj.map(showVariations)}
       </Modal.Body>
     </Modal>
   );

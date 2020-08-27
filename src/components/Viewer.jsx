@@ -9,12 +9,17 @@ import {
   Next,
   Flip,
 } from '.';
-import { getPreviousMove, getNextMoves } from '../functions';
+import {
+  getPreviousMove,
+  getNextMoves,
+  getMovesString,
+  getMainline,
+} from '../functions';
 
 const Viewer = ({ pgn }) => {
   const [isWhiteSide, setIsWhiteSide] = useState(true);
   const [currentItem, setCurrentItem] = useState(pgn[0]);
-  const [currentVariations, setCurrentVariations] = useState(null);
+  const [currentVarObj, setCurrentVarObj] = useState(null);
 
   const onKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
@@ -26,12 +31,12 @@ const Viewer = ({ pgn }) => {
   };
 
   const onMoveSelected = (itemIndex) => {
-    setCurrentVariations(null);
+    setCurrentVarObj(null);
     setCurrentItem(pgn[itemIndex]);
   };
 
   const previousMove = () => {
-    setCurrentVariations(null);
+    setCurrentVarObj(null);
     setCurrentItem(getPreviousMove(pgn, currentItem.index));
   };
 
@@ -41,7 +46,14 @@ const Viewer = ({ pgn }) => {
       if (nextMoves.length === 1) {
         setCurrentItem(nextMoves[0]);
       } else {
-        setCurrentVariations(nextMoves);
+        setCurrentVarObj(
+          nextMoves.map((item) => {
+            return {
+              moment: item,
+              written: getMovesString(getMainline(pgn, item.index)),
+            };
+          })
+        );
       }
     }
   };
@@ -89,11 +101,10 @@ const Viewer = ({ pgn }) => {
       tabIndex={0}
     >
       <div className="inline-block">
-        {currentVariations && (
+        {currentVarObj && (
           <MoveChoiceModal
-            pgn={pgn}
             chooseVariation={chooseVariation}
-            variations={currentVariations}
+            varObj={currentVarObj}
           />
         )}
         <Chessboard
