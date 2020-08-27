@@ -1,8 +1,8 @@
 import { getMoveNumber } from './getMoveNumber';
 
 export const getMovePrefix = (thisItem, prevItem) => {
-  const isPreceded = (thisItem, prevItem) => {
-    if (prevItem.comment || prevItem.depth !== thisItem.depth) {
+  const isPreceded = (prevItem) => {
+    if (prevItem.comment || !prevItem.move) {
       return true;
     }
     return false;

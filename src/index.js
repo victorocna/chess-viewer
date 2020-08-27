@@ -11,3 +11,5 @@ ReactDOM.render(
   <Viewer pgn={chessMoments(opening)} />,
   document.getElementById('root')
 );
+
+console.log(chessMoments(opening));

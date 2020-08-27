@@ -1,4 +1,4 @@
-import { areConsecutivePositions } from './areConsecutivePositions';
+import { areConsecutiveColorAndMove } from './areConsecutiveColorAndMove';
 
 export const getPreviousMove = (jsonedGame, currentIndex) => {
   if (currentIndex > jsonedGame.length) {
@@ -10,9 +10,8 @@ export const getPreviousMove = (jsonedGame, currentIndex) => {
       if (
         (jsonedGame[i].move || i === 0) &&
         jsonedGame[i].depth <= jsonedGame[currentIndex].depth &&
-        areConsecutivePositions(
+        areConsecutiveColorAndMove(
           jsonedGame[i].fen,
-          jsonedGame[currentIndex].move,
           jsonedGame[currentIndex].fen
         )
       ) {
