@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   Chessboard,
   Move,
@@ -76,7 +75,7 @@ const Viewer = ({ pgn }) => {
             itemIndex={index}
             previous={previous}
           />
-        )}
+        )}{' '}
         {comment && <Comment comment={comment} depth={depth} />}
       </span>
     );

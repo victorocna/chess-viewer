@@ -1,4 +1,4 @@
-const pgn = [
+export default [
   '{Facusem deja 3 remize consecutive si castigasem o partida(+1) in prima runda} 1. d4',
   '{Badev e un jucator de initiativa, de atac. De obicei joaca e4.} Nf6 2. Bg5 {Trompowsky - o',
   'arma mai rar intalnita in zilele noastre la marii maestrii} e6 {dupa parerea mea cea mai buna',
@@ -8,5 +8,3 @@ const pgn = [
   '0-1  /CN Echipe juniori B20 2007}) 3. e4 h6 {[%csl Re4]} 4. Bxf6 Qxf6 {[%csl Gc8,Gf8] negrul',
   'ramane cu perechea de nebuni} *',
 ];
-
-export default pgn;

@@ -9,12 +9,12 @@ export const getMovePrefix = (thisItem, prevItem) => {
   };
 
   if (thisItem.fen.includes(' b ')) {
-    return getMoveNumber(thisItem.fen) + '.';
+    return getMoveNumber(thisItem.fen) + '. ';
   }
 
   if (thisItem.fen.includes(' w ') && isPreceded(thisItem, prevItem)) {
-    return getMoveNumber(thisItem.fen) + '...';
+    return getMoveNumber(thisItem.fen) + '... ';
   }
 
-  return "";
+  return '';
 };
