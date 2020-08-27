@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 
-const MoveChoiceModal = ({
-  chooseVariation,
-  varObj,
-}) => {
+const MoveChoiceModal = ({ chooseVariation, varObj }) => {
+  console.log(varObj);
+
   const ref = useRef(null);
   const [show, setShow] = useState(true);
   const [focus, setFocus] = useState(0);

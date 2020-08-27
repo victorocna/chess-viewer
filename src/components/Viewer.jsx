@@ -45,11 +45,12 @@ const Viewer = ({ pgn }) => {
       if (nextMoves.length === 1) {
         setCurrentItem(nextMoves[0]);
       } else {
+        console.log('here');
         setCurrentVarObj(
           nextMoves.map((item) => {
             return {
               moment: item,
-              written: getMovesString(getMainline(pgn, item.index)),
+              written: getMovesString(getMainline(pgn, item.index, 5)),
             };
           })
         );
@@ -62,8 +63,11 @@ const Viewer = ({ pgn }) => {
   };
 
   const chooseVariation = (moveIndex) => {
+    setCurrentVarObj(null);
     setCurrentItem(pgn[moveIndex]);
   };
+
+  console.log(currentVarObj);
 
   const isMoveActive = (currentItem, item) => {
     try {

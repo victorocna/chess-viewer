@@ -1,8 +1,13 @@
 export const getMoveNumber = (fen) => {
+  let moveNumber = 0;
+
+  for(let i = fen.length - 1; fen[i] !== " "; i--) {
+    moveNumber += fen[i] * Math.pow(10, fen.length - 1 - i);
+  }
+
   if (fen.includes(' w ')) {
-    return fen[fen.length - 1] - 1;
+    moveNumber--;
   }
-  if (fen.includes(' b ')) {
-    return fen[fen.length - 1];
-  }
+
+  return moveNumber;
 };
