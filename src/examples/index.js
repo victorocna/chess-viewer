@@ -1,4 +1,5 @@
+import opening from './opening';
 import steinitz from './steinitz';
 import tibigi from './tibigi';
 
-export { steinitz, tibigi };
+export { opening, steinitz, tibigi };
