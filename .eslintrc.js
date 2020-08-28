@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-warning-comments': 'warn',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
