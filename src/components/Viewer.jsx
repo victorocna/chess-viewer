@@ -25,7 +25,9 @@ const Viewer = ({ pgn }) => {
       previousMove();
     }
     if (event.key === 'ArrowRight') {
-      nextMove();
+      if (!currentVarObj) {
+        nextMove();
+      }
     }
   };
 
@@ -45,7 +47,6 @@ const Viewer = ({ pgn }) => {
       if (nextMoves.length === 1) {
         setCurrentItem(nextMoves[0]);
       } else {
-        console.log('here');
         setCurrentVarObj(
           nextMoves.map((item) => {
             return {
@@ -66,8 +67,6 @@ const Viewer = ({ pgn }) => {
     setCurrentVarObj(null);
     setCurrentItem(pgn[moveIndex]);
   };
-
-  console.log(currentVarObj);
 
   const isMoveActive = (currentItem, item) => {
     try {
