@@ -22,7 +22,10 @@ const Viewer = ({ pgn }) => {
 
   const onKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
-      previousMove();
+      if (!currentVarObj) {
+        console.log("here")
+        previousMove();
+      }
     }
     if (event.key === 'ArrowRight') {
       if (!currentVarObj) {
