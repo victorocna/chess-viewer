@@ -6,38 +6,18 @@ export const getMainline = (jsonedGame, moveIndex, numberOfMoves) => {
   }
 
   let movesFound = [jsonedGame[moveIndex]];
+  let number = numberOfMoves || 1000;
 
-  if (numberOfMoves) {
-    for (
-      let i = moveIndex;
-      i < jsonedGame.length &&
-      movesFound.length < numberOfMoves &&
-      jsonedGame[i].move;
-      i++
-    ) {
-      if (jsonedGame[moveIndex].depth !== jsonedGame[i].depth) {
-        continue;
-      }
-      if (
-        areConsecutiveColorAndMove(jsonedGame[i].fen, jsonedGame[i + 1].fen)
-      ) {
-        movesFound.push(jsonedGame[i + 1]);
-      }
+  for (
+    let i = moveIndex;
+    i < jsonedGame.length && movesFound.length < number && jsonedGame[i].move;
+    i++
+  ) {
+    if (jsonedGame[moveIndex].depth !== jsonedGame[i].depth) {
+      continue;
     }
-  } else {
-    for (
-      let i = moveIndex;
-      i < jsonedGame.length && jsonedGame[i].move;
-      i++
-    ) {
-      if (jsonedGame[moveIndex].depth !== jsonedGame[i].depth) {
-        continue;
-      }
-      if (
-        areConsecutiveColorAndMove(jsonedGame[i].fen, jsonedGame[i + 1].fen)
-      ) {
-        movesFound.push(jsonedGame[i + 1]);
-      }
+    if (areConsecutiveColorAndMove(jsonedGame[i].fen, jsonedGame[i + 1].fen)) {
+      movesFound.push(jsonedGame[i + 1]);
     }
   }
 
