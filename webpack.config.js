@@ -1,4 +1,5 @@
 const path = require('path');
+var TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -17,32 +18,41 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        exclude: /(node_modules)/,
         use: [
-          'style-loader',
-          'css-loader'
-        ]
-      }
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
+  plugins: [
+    new TransferWebpackPlugin([{ from: 'public/chess', to: './chess' }]),
+  ],
   resolve: {
     alias: {
-      'react': path.resolve(__dirname, './node_modules/react'),
+      react: path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
-    }
+    },
   },
   externals: {
-    // Don't bundle react or react-dom      
+    // Don't bundle react or react-dom
     react: {
-      commonjs: "react",
-      commonjs2: "react",
-      amd: "React",
-      root: "React"
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'React',
+      root: 'React',
     },
-    "react-dom": {
-      commonjs: "react-dom",
-      commonjs2: "react-dom",
-      amd: "ReactDOM",
-      root: "ReactDOM"
-    }
-  }
+    'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'ReactDOM',
+      root: 'ReactDOM',
+    },
+  },
 };
