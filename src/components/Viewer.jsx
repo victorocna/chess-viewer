@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import chessMoments from 'chess-moments';
+
 import {
   Chessboard,
   Move,
@@ -15,9 +17,15 @@ import {
   getMainline,
 } from '../functions';
 
+
+import '../index.css';
+import '../chess.css';
+import '../coordinates.css';
+
 const Viewer = ({ pgn }) => {
+  const [jsonedGame] = useState(chessMoments(pgn));
   const [isWhiteSide, setIsWhiteSide] = useState(true);
-  const [currentItem, setCurrentItem] = useState(pgn[0]);
+  const [currentItem, setCurrentItem] = useState(jsonedGame[0]);
   const [currentVarObj, setCurrentVarObj] = useState(null);
 
   const onKeyDown = (event) => {
@@ -35,16 +43,16 @@ const Viewer = ({ pgn }) => {
 
   const onMoveSelected = (itemIndex) => {
     setCurrentVarObj(null);
-    setCurrentItem(pgn[itemIndex]);
+    setCurrentItem(jsonedGame[itemIndex]);
   };
 
   const previousMove = () => {
     setCurrentVarObj(null);
-    setCurrentItem(getPreviousMove(pgn, currentItem.index));
+    setCurrentItem(getPreviousMove(jsonedGame, currentItem.index));
   };
 
   const nextMove = () => {
-    let nextMoves = getNextMoves(pgn, currentItem.index);
+    let nextMoves = getNextMoves(jsonedGame, currentItem.index);
     if (nextMoves) {
       if (nextMoves.length === 1) {
         setCurrentItem(nextMoves[0]);
@@ -53,7 +61,7 @@ const Viewer = ({ pgn }) => {
           nextMoves.map((item) => {
             return {
               moment: item,
-              written: getMovesString(getMainline(pgn, item.index, 5)),
+              written: getMovesString(getMainline(jsonedGame, item.index, 5)),
             };
           })
         );
@@ -67,7 +75,7 @@ const Viewer = ({ pgn }) => {
 
   const chooseVariation = (moveIndex) => {
     setCurrentVarObj(null);
-    setCurrentItem(pgn[moveIndex]);
+    setCurrentItem(jsonedGame[moveIndex]);
   };
 
   const isMoveActive = (currentItem, item) => {
@@ -121,7 +129,7 @@ const Viewer = ({ pgn }) => {
         <Next onClick={nextMove} />
         <Flip onClick={flip} />
       </div>
-      <div className="inline">{pgn.map(showMoves)}</div>
+      <div className="inline">{jsonedGame.map(showMoves)}</div>
     </div>
   );
 };
