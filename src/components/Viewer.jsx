@@ -17,10 +17,10 @@ import {
   getMainline,
 } from '../functions';
 
-
-import '../index.css';
-import '../chess.css';
-import '../coordinates.css';
+import '../css/index.css';
+import '../css/chess.css';
+import '../css/coordinates.css';
+import '../css/tailwind.css';
 
 const Viewer = ({ pgn }) => {
   const [jsonedGame] = useState(chessMoments(pgn));
@@ -109,7 +109,7 @@ const Viewer = ({ pgn }) => {
   return (
     <div
       onKeyDown={onKeyDown}
-      className="grid lg:grid-cols-2 gap-4 mb-4"
+      className="grid lg:grid-cols-2 gap-4 my-2"
       tabIndex={0}
     >
       <div className="inline-block">

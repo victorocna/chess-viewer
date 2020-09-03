@@ -1,5 +1,4 @@
 const path = require('path');
-var TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -23,17 +22,10 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         exclude: /(node_modules)/,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        loader: 'url-loader',
       },
     ],
   },
-  plugins: [
-    new TransferWebpackPlugin([{ from: 'public/chess', to: './chess' }]),
-  ],
   resolve: {
     alias: {
       react: path.resolve(__dirname, './node_modules/react'),

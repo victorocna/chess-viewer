@@ -129,48 +129,48 @@ cg-board piece.fading {
  * Board
  */
 .brown .cg-wrap cg-board {
-  background-image: url('/chess/board/brown.svg');
+  background-image: url('../images/board/brown.svg');
 }
 .green .cg-wrap cg-board {
-  background-image: url('/chess/board/green.svg');
+  background-image: url('../images/board/green.svg');
 }
 
 /**
  * Pieces
  */
 .neo .cg-wrap piece.pawn.white {
-  background-image: url('/chess/pieces/neo/wP.png');
+  background-image: url('../images/pieces/neo/wP.png');
 }
 .neo .cg-wrap piece.bishop.white {
-  background-image: url('/chess/pieces/neo/wB.png');
+  background-image: url('../images/pieces/neo/wB.png');
 }
 .neo .cg-wrap piece.knight.white {
-  background-image: url('/chess/pieces/neo/wN.png');
+  background-image: url('../images/pieces/neo/wN.png');
 }
 .neo .cg-wrap piece.rook.white {
-  background-image: url('/chess/pieces/neo/wR.png');
+  background-image: url('../images/pieces/neo/wR.png');
 }
 .neo .cg-wrap piece.queen.white {
-  background-image: url('/chess/pieces/neo/wQ.png');
+  background-image: url('../images/pieces/neo/wQ.png');
 }
 .neo .cg-wrap piece.king.white {
-  background-image: url('/chess/pieces/neo/wK.png');
+  background-image: url('../images/pieces/neo/wK.png');
 }
 .neo .cg-wrap piece.pawn.black {
-  background-image: url('/chess/pieces/neo/bP.png');
+  background-image: url('../images/pieces/neo/bP.png');
 }
 .neo .cg-wrap piece.bishop.black {
-  background-image: url('/chess/pieces/neo/bB.png');
+  background-image: url('../images/pieces/neo/bB.png');
 }
 .neo .cg-wrap piece.knight.black {
-  background-image: url('/chess/pieces/neo/bN.png');
+  background-image: url('../images/pieces/neo/bN.png');
 }
 .neo .cg-wrap piece.rook.black {
-  background-image: url('/chess/pieces/neo/bR.png');
+  background-image: url('../images/pieces/neo/bR.png');
 }
 .neo .cg-wrap piece.queen.black {
-  background-image: url('/chess/pieces/neo/bQ.png');
+  background-image: url('../images/pieces/neo/bQ.png');
 }
 .neo .cg-wrap piece.king.black {
-  background-image: url('/chess/pieces/neo/bK.png');
+  background-image: url('../images/pieces/neo/bK.png');
 }

@@ -1,4 +1,12 @@
-
+.fa-backward::before {
+  content: '\f04a';
+}
+.fa-forward::before {
+  content: '\f04e';
+}
+.fa-exchange-alt::before {
+  content: '\f362';
+}
 
 button:focus {
   outline: 0;
