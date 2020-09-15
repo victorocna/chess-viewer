@@ -18,56 +18,40 @@
     "react-component"
   ],
   "license": "MIT",
-  "dependencies": {
-    "bootstrap": "^4.5.2",
-    "chess-moments": "^0.6.2",
-    "chessground": "^7.9.1",
-    "react-bootstrap": "^1.3.0"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development",
+    "transpile": "babel src -d dist --copy-files",
+    "prepublishOnly": "npm run transpile"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "babel-core": "^6.21.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.16.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "copy-webpack-plugin": "^6.1.0",
-    "css-loader": "^3.5.1",
+    "css-loader": "^4.3.0",
     "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.3",
-    "style-loader": "^1.1.3",
+    "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^3.2.1"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "webpack",
-    "prepare": "rm -rf dist && webpack",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "chess-moments": "^0.6.3",
+    "chessground": "^7.9.2",
+    "react-bootstrap": "^1.3.0",
+    "react-icons": "^3.11.0"
   }
 }
