@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import chessMoments from 'chess-moments';
 import { tibigi } from './examples';
 import Viewer from './components/Viewer';
-import './index.css';
-import './chess.css';
-import './coordinates.css';
+import './css/index.css';
+import './css/chess.css';
+import './css/coordinates.css';
 
 ReactDOM.render(
   <Viewer pgn={chessMoments(tibigi)} />,
