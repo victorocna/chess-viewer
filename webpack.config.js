@@ -22,7 +22,10 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         exclude: /(node_modules)/,
-        loader: 'url-loader',
+        loader: 'file-loader',
+        options: {
+          outputPath: 'images',
+        },
       },
     ],
   },
