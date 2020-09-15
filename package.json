@@ -1,11 +1,23 @@
 {
   "name": "chess-viewer",
-  "main": "dist/index.js",
   "version": "0.1.0",
-  "private": true,
+  "description": "A delightful chess game viewer for React",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
+  "author": "victorocna <victor@chesscoders.com>",
+  "homepage": "https://github.com/victorocna/chess-viewer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorocna/chess-viewer.git"
+  },
+  "keywords": [
+    "chess",
+    "react",
+    "react-component"
+  ],
+  "license": "MIT",
   "dependencies": {
     "bootstrap": "^4.5.2",
     "chess-moments": "^0.6.2",
